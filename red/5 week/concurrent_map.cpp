@@ -33,15 +33,10 @@ public:
   }
 
   map<K, V> BuildOrdinaryMap() {
+      map<K, V> result;
       for (size_t i = 0; i < threads.size(); ++i) {
           threads[i].lock();
-      }
-
-      map<K, V> result;
-      for (size_t i = 0; i < maps.size(); ++i) {
           result.insert(maps[i].begin(), maps[i].end());
-      }
-      for (size_t i = 0; i < threads.size(); ++i) {
           threads[i].unlock();
       }
       return result;
